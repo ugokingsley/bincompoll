@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <br/>
+	<div class="row">   
+		
+        <div class="container">
+            <form method="GET" action="{% url 'sum_total_result' %}">
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <select name="q" class="form-control" autofocus="autofocus" required="">
+                            <option value="">Select LGA</option>
+                            {% for obj in result %}
+                            <option value="{{ obj.lga_name }}">{{ obj.lga_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                
+                    <div class="col-md-2 ">
+                        <input type="submit" class="btn btn-primary" value="Filter LGA">
+                    </div>
+                </div>
+            </form><br/><br/>   
+        </div>
+        <div class="card">
+
+            <table class="table" style="background-color: #fff;">        
+                <thead>
+                  <tr>
+                    <th scope="col">Result ID</th>
+                    <th scope="col">Polling Unit Name</th>
+                    <th scope="col">LGA Name</th>
+                    <th scope="col">Party Abbreviation</th>
+                    <th scope="col">Party Score</th>
+                  </tr>
+                </thead>
+              {% if result %}
+                <tbody>
+                  {% for obj in result %}
+                  <tr>
+					          <td>{{ obj.result_id }}</td>
+                    <td>{{ obj.polling_unit_name }}</td>
+                    <td>{{ obj.lga_name }}</td>
+                    <td>{{ obj.party_abbreviation }}</td>
+                    <td>{{ obj.party_score }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              {% endif %}
+            </table>
+           
+
+    </div>
+</div>
+{% endblock %}

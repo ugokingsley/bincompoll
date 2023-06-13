@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+	<div class="row">   
+		<div class="col-lg-8">
+			<div class="card">
+			  <div class="card-body">
+				  <h3 class="card-title">Election Result for : {{ poll_unit.polling_unit_name }} Polling Unit</h3><br/>
+				  </div>
+			</div>
+		</div><br/><br/>   
+        <div class="card">
+
+            <table class="table" style="background-color: #fff;">        
+                <thead>
+                  <tr>
+                    <th scope="col">Result ID</th>
+                    <th scope="col">Poll Unit uniqueid</th>
+                    <th scope="col">Party Abbreviation</th>
+                    <th scope="col">Party Score</th>
+                    <th scope="col">Entered by user</th>
+					<th scope="col">Date</th>
+                  </tr>
+                </thead>
+              {% if result %}
+                <tbody>
+                  {% for obj in result %}
+                  <tr>
+					<td>{{ obj.result_id }}</td>
+                    <td>{{ obj.polling_unit_uniqueid }}</td>
+                    <td>{{ obj.party_abbreviation }}</td>
+                    <td>{{ obj.party_score }}</td>
+                    <td>{{ obj.entered_by_user }}</td>
+                    <td>{{ obj.date_entered }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              {% endif %}
+            </table>
+           
+
+    </div>
+</div>
+{% endblock %}

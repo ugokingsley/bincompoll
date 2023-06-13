@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+	<div class="row">   
+		<div class="col-lg-8">
+			<div class="card">
+			  <div class="card-body">
+				  <h3 class="card-title">Polling Units In Delta State</h3><br/>
+				  <h5>Click view results to see polling units results</h5>
+				  </div>
+			</div>
+		</div><br/><br/>   
+        <div class="card">
+
+            <table class="table" style="background-color: #fff;">        
+                <thead>
+                  <tr>
+                    <th scope="col">Polling UnitID</th>
+                    <th scope="col">Ward ID</th>
+                    <th scope="col">LGA ID</th>
+                    <th scope="col">UNQUE  WARD ID</th>
+                    <th scope="col">POLL UNIT NUMBER</th>
+					<th scope="col">POLL UNIT NAME</th>
+                  </tr>
+                </thead>
+              {% if emps %}
+                <tbody>
+                  {% for obj in emps %}
+                  <tr>
+                    <td>{{ obj.polling_unit_id }}</td>
+                    <td>{{ obj.ward_id }}</td>
+                    <td>{{ obj.lga_id }}</td>
+                    <td>{{ obj.uniquewardid }}</td>
+                    <td>{{ obj.polling_unit_number }}</td>
+					<td>{{ obj.polling_unit_name }}</td>
+                    <td><a href="{% url 'view_result' obj.uniqueid %}"> view results</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              {% endif %}
+            </table>
+            {% if emps.has_other_pages %}
+                <div class="container"> <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if emps.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ emps.previous_page_number }}">Previous</a></li>
+                        {% else %}
+                        <li class="disabled"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                        {% for i in emps.paginator.page_range %}
+                        {% if emps.number == i %}
+                            <li class="active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if emps.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ emps.next_page_number }}">Next</a></li>
+                        {% else %}
+                        <li class="disabled"><span class="page-link">&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    </nav>
+                </div><br><br>
+            {% endif %}
+
+    </div>
+</div>
+{% endblock %}
